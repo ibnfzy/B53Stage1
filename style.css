@@ -1,0 +1,177 @@
+body {
+  background-color: rgb(226, 226, 226);
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  background-color: whitesmoke;
+    width: 700px;
+    margin: auto;
+    margin-top: 80px;
+    padding: 50px;
+    margin-bottom: 50px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: #dbdbdb;
+  padding: 0 80px;
+  align-items: center;
+}
+
+nav .left ul {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+nav .left ul img {
+  margin-right: 40px;
+}
+
+nav .left ul li a {
+  color: black;
+  text-decoration: none;
+}
+
+nav .left ul .active a {
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+}
+
+nav .right a {
+  text-decoration: none;
+  background-color: rgb(0, 0, 0);
+  padding: 8px 20px;
+  border-radius: 5px;
+  color: white;
+}
+
+nav .left ul li {
+  list-style-type: none;
+  margin-right: 25px;
+}
+
+.container .flex-row {
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content {
+  text-align: justify;
+    width: 90%;
+    margin-bottom: 5%;
+}
+
+.btn-black {
+  background-color: black;
+    color: white;
+    border-radius: 17px;
+    padding: 5px 20px 5px 20px;
+    text-decoration: none;
+    font-size: large;
+    margin-bottom: 5%;
+}
+
+.btn-social {
+  display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    padding-right: 20px;
+    margin-bottom: 5%;
+}
+
+.icon {
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: black;
+}
+
+.link {
+  color: black;
+    font-size: large;
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 5%;
+}
+
+.card {
+  width: max;
+    text-align: center;
+}
+
+.card-body {
+  margin: auto;
+    margin-bottom: 10px;
+    box-shadow: 0px 10px 20px gray;
+    border-radius: 10px;
+}
+
+.card-img {
+  width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.card-name {
+  margin: 0;
+    padding: 0;
+}
+
+.card-description {
+  font-weight: lighter;
+    font-size: x-small;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 10px;
+}
+
+form {
+  width: 350px;
+  margin: 50px auto;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0;
+  border-radius: 5px;
+  border: 1px solid #dbdbdb;
+  margin-top: 5px;
+  height: 40px;
+  box-shadow: 0px 4px 10px gray;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+form label {
+  font-weight: bold;
+}
+
+form div {
+  margin-top: 10px;
+}
+
+form div button {
+  background-color: rgb(0, 0, 0);
+  padding: 8px 20px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  float: right;
+}
+
+.login-title {
+  text-align: center;
+}
