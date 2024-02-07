@@ -4,9 +4,8 @@ function sendMail() {
   let phone = document.getElementById("phone").value;
   let subject = document.getElementById("subject").value;
   let message = document.getElementById("message").value;
-  let emailDestination = "alboneh99@gmail.com";
-  let url =
-    "mailto:" + emailDestination + "?subject=" + subject + "&body=" + message;
+  let emailDestination = "hi.dandi9@gmail.com";
+  let url = `mailto:${emailDestination}?subject=${subject}&body=Halo bang nama saya, ${name}, saya ingin ${message}. bisakah anda menghubungi saya ${phone}`;
 
   if (name == "") {
     return alert("Please type your name");
