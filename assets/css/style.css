@@ -1,19 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: rgb(226, 226, 226);
-    font-family: 'Poppins', sans-serif;
+  background-color: rgb(214, 225, 230);
+  font-family: "Poppins", sans-serif;
 }
 
 .container {
   background-color: whitesmoke;
-    width: 700px;
-    margin: auto;
-    margin-top: 80px;
-    padding: 50px;
-    margin-bottom: 50px;
+  width: 700px;
+  margin: auto;
+  margin-top: 80px;
+  padding: 50px;
+  margin-bottom: 50px;
 }
 
 nav {
   display: flex;
+  /* width: 100%; */
   justify-content: space-between;
   background-color: #dbdbdb;
   padding: 0 80px;
@@ -55,89 +60,90 @@ nav .left ul li {
 
 .container .flex-row {
   display: flex;
-    justify-content: space-between;
-    align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .content {
   text-align: justify;
-    width: 90%;
-    margin-bottom: 5%;
+  width: 90%;
+  margin-bottom: 5%;
 }
 
 .btn-black {
   background-color: black;
-    color: white;
-    border-radius: 17px;
-    padding: 5px 20px 5px 20px;
-    text-decoration: none;
-    font-size: large;
-    margin-bottom: 5%;
+  color: white;
+  border-radius: 14px;
+  padding: 5px 20px 5px 20px;
+  text-decoration: none;
+  font-size: large;
+  margin-bottom: 5%;
+  text-align: center;
 }
 
 .btn-social {
   display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    color: white;
-    padding-right: 20px;
-    margin-bottom: 5%;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  padding-right: 20px;
+  margin-bottom: 5%;
 }
 
 .icon {
   display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: black;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: black;
 }
 
 .link {
   color: black;
-    font-size: large;
-    text-decoration: none;
-    font-weight: 600;
-    margin-bottom: 5%;
+  font-size: large;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: 5%;
 }
 
 .card {
-  width: max;
-    text-align: center;
+  width: 20%;
+  text-align: center;
 }
 
 .card-body {
   margin: auto;
-    margin-bottom: 10px;
-    box-shadow: 0px 10px 20px gray;
-    border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0px 10px 20px gray;
+  border-radius: 10px;
 }
 
 .card-img {
   width: 100%;
-    border-radius: 10px 10px 0 0;
+  border-radius: 10px 10px 0 0;
 }
 
 .card-name {
   margin: 0;
-    padding: 0;
+  padding: 0;
 }
 
 .card-description {
   font-weight: lighter;
-    font-size: x-small;
-    margin: 0;
-    padding: 0;
-    padding-bottom: 10px;
+  font-size: x-small;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 10px;
 }
 
 form {
   width: 350px;
-  margin: 50px auto;
+  margin: 50px auto 100px;
 }
 
-input,
+input[type="text"],
 select,
 textarea {
   width: 100%;
@@ -174,4 +180,155 @@ form div button {
 
 .login-title {
   text-align: center;
+}
+
+.row {
+  display: flex;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  /* margin-right: -15px;
+  margin-left: -15px; */
+}
+
+.row-wrap {
+  flex-wrap: wrap;
+}
+
+.input-date {
+  width: 97%;
+  padding: 0;
+  border-radius: 5px;
+  border: 1px solid #dbdbdb;
+  margin-top: 5px;
+  height: 40px;
+  box-shadow: 0px 4px 10px gray;
+}
+
+input[type="file"] {
+  width: 340px;
+  max-width: 100%;
+  color: #444;
+  padding: 5px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #555;
+}
+
+input[type="file"]::file-selector-button {
+  margin-right: 20px;
+  border: none;
+  background: #d2d2d2;
+  padding: 10px 10px;
+  border-radius: 10px;
+  color: #9c9c9c;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: #000000;
+  color: white;
+}
+
+.checkbox-control {
+  width: 100%;
+}
+
+.col-12,
+.col-3 {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-12 {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.col-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.col-4 {
+  flex: 0 0 30%;
+  max-width: 30%;
+}
+
+.col-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+  border-radius: 20px;
+  border: 1px solid #ffffff;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.project {
+  background-color: white;
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.project-card {
+  position: relative;
+  margin: 8%;
+}
+
+.project-content {
+  justify-content: space-evenly;
+}
+
+.card-img-project {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card-body-project {
+  margin: auto;
+  margin-bottom: 10px;
+  box-shadow: 0px 10px 20px gray;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.icon-list {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.icon-project {
+  width: 30px;
+}
+
+.icon-project-mid {
+  width: 30px;
+  margin-left: 20px;
+  margin: 20px;
+}
+
+.card-title {
+  margin: 5px 0;
+}
+
+.card-date {
+  margin: 0;
+  font-weight: 100;
 }
