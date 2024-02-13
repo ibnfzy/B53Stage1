@@ -67,7 +67,7 @@ function renderProject() {
             <div class="project-card">
               <div class="card-body-project">
                 <img src="./assets/img/stock-img.jpg" alt="" class="card-img-project" />
-                <h3 class="card-title">${project.name}</h3>
+                <h3 class="card-title"><a href='./detail_projects.html' target='_blank'>${project.name}</a></h3>
                 <p class="card-date">durasi : 3 bulan</p>
                 <p>
                   ${project.desc}
