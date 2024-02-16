@@ -291,6 +291,10 @@ input[type="checkbox"] {
   justify-content: center;
 }
 
+.justify-content-start {
+  justify-content: flex-start;
+}
+
 .project-card {
   position: relative;
   margin: 8%;
@@ -365,4 +369,9 @@ input[type="checkbox"] {
   text-align: justify;
   padding-left: 120px;
   padding-right: 120px;
+}
+
+.link-detail {
+  text-decoration: none;
+  color: black;
 }
