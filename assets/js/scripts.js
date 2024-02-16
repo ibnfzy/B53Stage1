@@ -136,24 +136,24 @@ function getDiffDate(start_date, end_date) {
   const years = Math.floor(months / 12);
 
   if (days === 1) {
-    return "1 day ago";
+    return "1 day";
   }
 
   if (days < 30) {
-    return days + " days ago";
+    return days + " days";
   }
 
   if (months === 1) {
-    return "1 month ago";
+    return "1 month";
   }
 
   if (months < 12) {
-    return months + " months ago";
+    return months + " months";
   }
 
   if (years === 1) {
-    return "1 year ago";
+    return "1 year";
   }
 
-  return years + " years ago";
+  return years + " years";
 }
