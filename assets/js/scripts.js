@@ -38,8 +38,8 @@ function addProject(event) {
   event.preventDefault();
 
   let name = document.getElementById("name").value;
-  let date1 = document.getElementById("date1").value;
-  let date2 = document.getElementById("date2").value;
+  let date1 = new Date(document.getElementById("date1").value);
+  let date2 = new Date(document.getElementById("date2").value);
   let node = document.getElementById("node").checked;
   let react = document.getElementById("react").checked;
   let next = document.getElementById("next").checked;
@@ -59,7 +59,7 @@ function addProject(event) {
 
   dataProjects.push(dataProject);
 
-  // console.log(dataProject);
+  // console.table(dataProjects);
 
   renderProject();
 }
@@ -99,7 +99,10 @@ function renderProject() {
           <h3 class="card-title"><a href='./detail_projects.html' target='_blank' class="link-detail">${
             project.name
           }</a></h3>
-          <p class="card-date">durasi : 3 bulan</p>
+          <p class="card-date">durasi : ${getDiffDate(
+            project.date1,
+            project.date2
+          )}</p>
           <p>
             ${project.desc}
           </p>
@@ -124,4 +127,33 @@ function renderProject() {
     </div>
         `;
   });
+}
+
+function getDiffDate(start_date, end_date) {
+  const diffInMs = Math.abs(end_date - start_date);
+  const days = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  const months = Math.floor(days / 30);
+  const years = Math.floor(months / 12);
+
+  if (days === 1) {
+    return "1 day ago";
+  }
+
+  if (days < 30) {
+    return days + " days ago";
+  }
+
+  if (months === 1) {
+    return "1 month ago";
+  }
+
+  if (months < 12) {
+    return months + " months ago";
+  }
+
+  if (years === 1) {
+    return "1 year ago";
+  }
+
+  return years + " years ago";
 }
