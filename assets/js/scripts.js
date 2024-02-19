@@ -1,4 +1,17 @@
 let dataProjects = [];
+let isNavbarMenuOpen = false;
+
+function navbarOpen() {
+  let navbar_dropdown = document.getElementById("dropdown");
+
+  if (!isNavbarMenuOpen) {
+    navbar_dropdown.className = "dropdown-navbar";
+    isNavbarMenuOpen = true;
+  } else {
+    navbar_dropdown.className = "dropdown-navbar d-none";
+    isNavbarMenuOpen = false;
+  }
+}
 
 function sendMail() {
   let name = document.getElementById("name").value;

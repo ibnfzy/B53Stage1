@@ -9,11 +9,14 @@ body {
 
 .container {
   background-color: whitesmoke;
-  width: 700px;
-  margin: auto;
-  margin-top: 80px;
+  /* width: 700px; */
+  margin: 80px 80px;
   padding: 50px;
   margin-bottom: 50px;
+}
+
+.d-none {
+  display: none;
 }
 
 nav {
@@ -56,6 +59,43 @@ nav .right a {
 nav .left ul li {
   list-style-type: none;
   margin-right: 25px;
+}
+
+.btn-navbar {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.dropdown-navbar a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #dbdbdb;
+  color: black;
+}
+
+.dropdown-navbar a.active {
+  background-color: black;
+  color: white;
+}
+
+@media screen and (max-width: 550px) {
+  nav .left ul li a {
+    display: none;
+  }
+
+  .right a {
+    display: none;
+  }
+
+  .right.d-none {
+    display: block;
+  }
 }
 
 .container .flex-row {
@@ -113,6 +153,10 @@ nav .left ul li {
   text-align: center;
 }
 
+.card-home {
+  text-align: center;
+}
+
 .card-body {
   margin: auto;
   margin-bottom: 10px;
@@ -144,6 +188,7 @@ form {
 }
 
 input[type="text"],
+input[type="email"],
 select,
 textarea {
   width: 100%;
@@ -374,4 +419,12 @@ input[type="checkbox"] {
 .link-detail {
   text-decoration: none;
   color: black;
+}
+
+/* index.html */
+
+@media screen and (max-width: 550px) {
+  .flex-row {
+    flex-direction: column;
+  }
 }
