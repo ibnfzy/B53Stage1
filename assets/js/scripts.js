@@ -72,8 +72,6 @@ function addProject(event) {
 
   dataProjects.push(dataProject);
 
-  // console.table(dataProjects);
-
   renderProject();
 }
 
@@ -170,3 +168,46 @@ function getDiffDate(start_date, end_date) {
 
   return years + " years";
 }
+
+// Testimonial
+let testimonials = document.getElementById("testimonials");
+
+window.addEventListener("load", () => {
+  if (testimonials === undefined) {
+    return;
+  }
+
+  dataTestimonials = [
+    {
+      image: "./assets/img/nelson.jpg",
+      quote: "Mantap Sekali jasanya",
+      name: "Kelly",
+    },
+    {
+      image: "./assets/img/kelly.jpg",
+      quote: "Kerenlah pokoknya",
+      name: "Nelson",
+    },
+    {
+      image: "./assets/img/rfs.jpg",
+      quote: "Wuhuu keren loh!",
+      name: "Rfs",
+    },
+  ];
+
+  dataTestimonials.forEach((data) => {
+    let testimonial = new Testimonials(data.image, data.quote, data.name);
+
+    testimonials.innerHTML += `
+      <div class="col-4">
+          <div class="project-card">
+            <div class="card-body-project">
+              <img src="${testimonial.image}" alt="" height="292" class="card-img-project" />
+              <p class="card-title"><q><i>${testimonial.quote}</i></q></p>
+              <h3 class="testimonials-name">- ${testimonial.name}</h3>
+            </div>
+          </div>
+        </div>
+    `;
+  });
+});
