@@ -223,6 +223,11 @@ form div button {
   float: right;
 }
 
+.testimonials-name {
+  display: grid;
+  justify-items: end;
+}
+
 .login-title {
   text-align: center;
 }
