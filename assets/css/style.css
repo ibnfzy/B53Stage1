@@ -19,6 +19,20 @@ body {
   display: none;
 }
 
+.star-btn {
+  background: black;
+  color: white;
+  font-size: larger;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 7px;
+}
+
+.rating-row {
+  justify-content: center;
+}
+
 nav {
   display: flex;
   /* width: 100%; */
@@ -82,20 +96,6 @@ a {
 .dropdown-navbar a.active {
   background-color: black;
   color: white;
-}
-
-@media screen and (max-width: 550px) {
-  nav .left ul li a {
-    display: none;
-  }
-
-  .right a {
-    display: none;
-  }
-
-  .right.d-none {
-    display: block;
-  }
 }
 
 .container .flex-row {
@@ -228,6 +228,10 @@ form div button {
   justify-items: end;
 }
 
+.no-p {
+  padding: 0;
+}
+
 .login-title {
   text-align: center;
 }
@@ -257,7 +261,7 @@ form div button {
 }
 
 input[type="file"] {
-  width: 340px;
+  width: 100%;
   max-width: 100%;
   color: #444;
   padding: 5px;
@@ -290,8 +294,8 @@ input[type="file"]::file-selector-button:hover {
 .col-3 {
   position: relative;
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  /* padding-right: 15px;
+  padding-left: 15px; */
 }
 
 .col-12 {
@@ -426,9 +430,24 @@ input[type="checkbox"] {
   color: black;
 }
 
-/* index.html */
+@media screen and (max-width: 700px) {
+  nav .left ul li a {
+    display: none;
+  }
 
-@media screen and (max-width: 550px) {
+  .right a {
+    display: none;
+  }
+
+  .right.d-none {
+    display: block;
+  }
+
+  .col-4 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
   .flex-row {
     flex-direction: column;
   }

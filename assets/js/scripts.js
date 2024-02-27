@@ -170,33 +170,56 @@ function getDiffDate(start_date, end_date) {
 }
 
 // Testimonial
-let testimonials = document.getElementById("testimonials");
+let dataTestimonials = [
+  {
+    image: "./assets/img/rfs.jpg",
+    quote: "Mantap Sekali jasanya",
+    name: "Kelly",
+    rating: 2,
+  },
+  {
+    image: "./assets/img/rfs.jpg",
+    quote: "Kerenlah pokoknya",
+    name: "Nelson",
+    rating: 3,
+  },
+  {
+    image: "./assets/img/rfs.jpg",
+    quote: "Wuhuu keren loh!",
+    name: "Rfs",
+    rating: 4,
+  },
+  {
+    image: "./assets/img/rfs.jpg",
+    quote: "Wuhuu keren loh!",
+    name: "Rfs",
+    rating: 1,
+  },
+  {
+    image: "./assets/img/rfs.jpg",
+    quote: "Wuhuu keren loh!",
+    name: "Rfs",
+    rating: 2,
+  },
+  {
+    image: "./assets/img/rfs.jpg",
+    quote: "Wuhuu keren loh!",
+    name: "Rfs",
+    rating: 5,
+  },
+];
 
-window.addEventListener("load", () => {
-  if (testimonials === undefined) {
-    return;
-  }
-
-  dataTestimonials = [
-    {
-      image: "./assets/img/nelson.jpg",
-      quote: "Mantap Sekali jasanya",
-      name: "Kelly",
-    },
-    {
-      image: "./assets/img/kelly.jpg",
-      quote: "Kerenlah pokoknya",
-      name: "Nelson",
-    },
-    {
-      image: "./assets/img/rfs.jpg",
-      quote: "Wuhuu keren loh!",
-      name: "Rfs",
-    },
-  ];
+const DataTestimonials = () => {
+  let testimonials = document.getElementById("testimonials");
+  testimonials.innerHTML = "";
 
   dataTestimonials.forEach((data) => {
-    let testimonial = new Testimonials(data.image, data.quote, data.name);
+    let testimonial = new Testimonials(
+      data.image,
+      data.quote,
+      data.name,
+      data.rating
+    );
 
     testimonials.innerHTML += `
       <div class="col-4">
@@ -205,9 +228,46 @@ window.addEventListener("load", () => {
               <img src="${testimonial.image}" alt="" height="292" class="card-img-project" />
               <p class="card-title"><q><i>${testimonial.quote}</i></q></p>
               <h3 class="testimonials-name">- ${testimonial.name}</h3>
+              <h3 class="testimonials-name"> ${testimonial.rating} ⭐</h3>
             </div>
           </div>
         </div>
     `;
   });
+};
+
+const FilterTestimonials = (rating) => {
+  let testimonials = document.getElementById("testimonials");
+  let filteredData = dataTestimonials.filter((data) => data.rating === rating);
+  testimonials.innerHTML = "";
+
+  filteredData.forEach((data) => {
+    let testimonial = new Testimonials(
+      data.image,
+      data.quote,
+      data.name,
+      data.rating
+    );
+
+    testimonials.innerHTML += `
+      <div class="col-4">
+          <div class="project-card">
+            <div class="card-body-project">
+              <img src="${testimonial.image}" alt="" height="292" class="card-img-project" />
+              <p class="card-title"><q><i>${testimonial.quote}</i></q></p>
+              <h3 class="testimonials-name">- ${testimonial.name}</h3>
+              <h3 class="testimonials-name"> ${testimonial.rating} ⭐</h3>
+            </div>
+          </div>
+        </div>
+    `;
+  });
+};
+
+window.addEventListener("load", () => {
+  if (new Testimonials() === undefined) {
+    return;
+  }
+
+  DataTestimonials();
 });

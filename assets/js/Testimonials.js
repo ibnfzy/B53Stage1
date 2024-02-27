@@ -1,8 +1,9 @@
 class Testimonials {
-  constructor(image, quote, name) {
+  constructor(image, quote, name, rating) {
     this._image = image;
     this._quote = quote;
     this._name = name;
+    this._rating = rating;
   }
 
   get image() {
@@ -15,6 +16,10 @@ class Testimonials {
 
   get name() {
     return this._name;
+  }
+
+  get rating() {
+    return this._rating;
   }
 
   set image(val) {
@@ -42,5 +47,14 @@ class Testimonials {
     }
 
     this._name = val;
+  }
+
+  set rating(val) {
+    if (val === "") {
+      console.log("Rating cannot be empty");
+      return;
+    }
+
+    this._rating;
   }
 }
