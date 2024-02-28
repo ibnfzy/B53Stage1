@@ -169,46 +169,37 @@ function getDiffDate(start_date, end_date) {
   return years + " years";
 }
 
-let dataTestimonials = [];
+const getData = () => {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    const url = "https://api.npoint.io/1465052a4f4453fb4ba3";
 
-const getData = function () {
-  let data = [];
-  const xhr = new XMLHttpRequest();
-  const url = "https://api.npoint.io/1465052a4f4453fb4ba3";
-
-  xhr.open("GET", url);
-  xhr.send();
-  xhr.onload = async () => {
-    if (xhr.status === 200) {
-      const dataJson = await JSON.parse(xhr.responseText);
-      data = dataJson.data;
-      console.log(data);
-      data.forEach((item) => {
-        dataTestimonials.push({
-          image: item.image,
-          quote: item.comment,
-          name: item.author,
-          rating: item.rate,
-        });
-      });
-    } else {
-      console.log("Request gagal. Status code: ", xhr.status);
-      return data;
-    }
-  };
+    xhr.open("GET", url);
+    xhr.send();
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        resolve(JSON.parse(xhr.response));
+      } else {
+        reject("Request gagal. Status code: ", xhr.status);
+      }
+    };
+  });
 };
 
-const DataTestimonials = () => {
+const DataTestimonials = async () => {
   let testimonials = document.getElementById("testimonials");
   testimonials.innerHTML = "";
-  getData();
+  const data = await getData();
+  const dataTestimonials = data.data;
+
+  console.log(dataTestimonials);
 
   dataTestimonials.forEach((data) => {
     let testimonial = new Testimonials(
       data.image,
-      data.quote,
-      data.name,
-      data.rating
+      data.comment,
+      data.author,
+      data.rate
     );
 
     testimonials.innerHTML += `
@@ -216,9 +207,9 @@ const DataTestimonials = () => {
           <div class="project-card">
             <div class="card-body-project">
               <img src="${testimonial.image}" alt="" class="card-img-project" />
-              <p class="card-title"><q><i>${testimonial.quote}</i></q></p>
-              <h3 class="testimonials-name">- ${testimonial.name}</h3>
-              <h3 class="testimonials-name"> ${testimonial.rating} ⭐</h3>
+              <p class="card-title"><q><i>${testimonial.comment}</i></q></p>
+              <h3 class="testimonials-name">- ${testimonial.author}</h3>
+              <h3 class="testimonials-name"> ${testimonial.rate} ⭐</h3>
             </div>
           </div>
         </div>
@@ -226,29 +217,30 @@ const DataTestimonials = () => {
   });
 };
 
-const FilterTestimonials = (rating) => {
+const FilterTestimonials = async (rating) => {
   let testimonials = document.getElementById("testimonials");
-  getData();
+  const data = await getData();
+  const dataTestimonials = data.data;
 
-  let filteredData = dataTestimonials.filter((data) => data.rating === rating);
+  let filteredData = dataTestimonials.filter((data) => data.rate === rating);
   testimonials.innerHTML = "";
 
   filteredData.forEach((data) => {
     let testimonial = new Testimonials(
       data.image,
-      data.quote,
-      data.name,
-      data.rating
+      data.comment,
+      data.author,
+      data.rate
     );
 
     testimonials.innerHTML += `
       <div class="col-4">
           <div class="project-card">
             <div class="card-body-project">
-              <img src="${testimonial.image}" alt="" height="292" class="card-img-project" />
-              <p class="card-title"><q><i>${testimonial.quote}</i></q></p>
-              <h3 class="testimonials-name">- ${testimonial.name}</h3>
-              <h3 class="testimonials-name"> ${testimonial.rating} ⭐</h3>
+              <img src="${testimonial.image}" alt=""  class="card-img-project" />
+              <p class="card-title"><q><i>${testimonial.comment}</i></q></p>
+              <h3 class="testimonials-name">- ${testimonial.author}</h3>
+              <h3 class="testimonials-name"> ${testimonial.rate} ⭐</h3>
             </div>
           </div>
         </div>
@@ -256,14 +248,10 @@ const FilterTestimonials = (rating) => {
   });
 };
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
   if (new Testimonials() === undefined) {
     return;
   }
 
-  getData();
-
-  setTimeout(() => {
-    DataTestimonials();
-  }, 1000);
+  await DataTestimonials();
 });

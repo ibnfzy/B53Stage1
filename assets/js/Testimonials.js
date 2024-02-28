@@ -1,25 +1,25 @@
 class Testimonials {
-  constructor(image, quote, name, rating) {
+  constructor(image, comment, author, rate) {
     this._image = image;
-    this._quote = quote;
-    this._name = name;
-    this._rating = rating;
+    this._comment = comment;
+    this._author = author;
+    this._rate = rate;
   }
 
   get image() {
     return this._image;
   }
 
-  get quote() {
-    return this._quote;
+  get comment() {
+    return this._comment;
   }
 
-  get name() {
-    return this._name;
+  get author() {
+    return this._author;
   }
 
-  get rating() {
-    return this._rating;
+  get rate() {
+    return this._rate;
   }
 
   set image(val) {
@@ -31,30 +31,30 @@ class Testimonials {
     this._image = val;
   }
 
-  set quote(val) {
+  set comment(val) {
     if (val === "") {
       console.log("Quote cannot be empty");
       return;
     }
 
-    this._quote = val;
+    this._comment = val;
   }
 
-  set name(val) {
+  set author(val) {
     if (val === "") {
       console.log("Name cannot be empty");
       return;
     }
 
-    this._name = val;
+    this._author = val;
   }
 
-  set rating(val) {
+  set rate(val) {
     if (val === "") {
       console.log("Rating cannot be empty");
       return;
     }
 
-    this._rating;
+    this._rate;
   }
 }
