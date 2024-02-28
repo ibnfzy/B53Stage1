@@ -248,10 +248,4 @@ const FilterTestimonials = async (rating) => {
   });
 };
 
-window.addEventListener("load", async () => {
-  if (new Testimonials() === undefined) {
-    return;
-  }
-
-  await DataTestimonials();
-});
+await DataTestimonials();
