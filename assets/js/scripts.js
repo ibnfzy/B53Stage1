@@ -169,49 +169,39 @@ function getDiffDate(start_date, end_date) {
   return years + " years";
 }
 
-// Testimonial
-let dataTestimonials = [
-  {
-    image: "./assets/img/rfs.jpg",
-    quote: "Mantap Sekali jasanya",
-    name: "Kelly",
-    rating: 2,
-  },
-  {
-    image: "./assets/img/rfs.jpg",
-    quote: "Kerenlah pokoknya",
-    name: "Nelson",
-    rating: 3,
-  },
-  {
-    image: "./assets/img/rfs.jpg",
-    quote: "Wuhuu keren loh!",
-    name: "Rfs",
-    rating: 4,
-  },
-  {
-    image: "./assets/img/rfs.jpg",
-    quote: "Wuhuu keren loh!",
-    name: "Rfs",
-    rating: 1,
-  },
-  {
-    image: "./assets/img/rfs.jpg",
-    quote: "Wuhuu keren loh!",
-    name: "Rfs",
-    rating: 2,
-  },
-  {
-    image: "./assets/img/rfs.jpg",
-    quote: "Wuhuu keren loh!",
-    name: "Rfs",
-    rating: 5,
-  },
-];
+let dataTestimonials = [];
+
+const getData = function () {
+  let data = [];
+  const xhr = new XMLHttpRequest();
+  const url = "https://api.npoint.io/1465052a4f4453fb4ba3";
+
+  xhr.open("GET", url);
+  xhr.send();
+  xhr.onload = async () => {
+    if (xhr.status === 200) {
+      const dataJson = await JSON.parse(xhr.responseText);
+      data = dataJson.data;
+      console.log(data);
+      data.forEach((item) => {
+        dataTestimonials.push({
+          image: item.image,
+          quote: item.comment,
+          name: item.author,
+          rating: item.rate,
+        });
+      });
+    } else {
+      console.log("Request gagal. Status code: ", xhr.status);
+      return data;
+    }
+  };
+};
 
 const DataTestimonials = () => {
   let testimonials = document.getElementById("testimonials");
   testimonials.innerHTML = "";
+  getData();
 
   dataTestimonials.forEach((data) => {
     let testimonial = new Testimonials(
@@ -225,7 +215,7 @@ const DataTestimonials = () => {
       <div class="col-4">
           <div class="project-card">
             <div class="card-body-project">
-              <img src="${testimonial.image}" alt="" height="292" class="card-img-project" />
+              <img src="${testimonial.image}" alt="" class="card-img-project" />
               <p class="card-title"><q><i>${testimonial.quote}</i></q></p>
               <h3 class="testimonials-name">- ${testimonial.name}</h3>
               <h3 class="testimonials-name"> ${testimonial.rating} ⭐</h3>
@@ -238,6 +228,8 @@ const DataTestimonials = () => {
 
 const FilterTestimonials = (rating) => {
   let testimonials = document.getElementById("testimonials");
+  getData();
+
   let filteredData = dataTestimonials.filter((data) => data.rating === rating);
   testimonials.innerHTML = "";
 
@@ -269,5 +261,9 @@ window.addEventListener("load", () => {
     return;
   }
 
-  DataTestimonials();
+  getData();
+
+  setTimeout(() => {
+    DataTestimonials();
+  }, 1000);
 });
