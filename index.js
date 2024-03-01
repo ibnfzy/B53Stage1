@@ -13,13 +13,15 @@ const __dirname = path.dirname(__filename);
 
 // Config hbs
 app.set("view engine", "hbs");
+
 app.set("views", "src/views");
+
 app.use("/assets", express.static("src/assets"));
-hbs.registerPartials(__dirname + "/src/views/partials", (err) => {
-  return console.log(err);
-});
-hbs.registerHelper("if_equal", (value1, value2, opts) => {
-  if (value1 === value2) {
+
+hbs.registerPartials(__dirname + "/src/views/partials");
+
+hbs.registerHelper("if_active", (currentUrl, value, opts) => {
+  if (currentUrl === value) {
     return opts.fn(this);
   } else {
     return opts.inverse(this);
@@ -28,23 +30,33 @@ hbs.registerHelper("if_equal", (value1, value2, opts) => {
 
 // Routes
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", {
+    currentUrl: req.path,
+  });
 });
 
 app.get("/contact", (req, res) => {
-  res.render("contact");
+  res.render("contact", {
+    currentUrl: req.path,
+  });
 });
 
 app.get("/detail_project", (req, res) => {
-  res.render("detail_projects");
+  res.render("detail_projects", {
+    currentUrl: req.path,
+  });
 });
 
 app.get("/projects", (req, res) => {
-  res.render("projects");
+  res.render("projects", {
+    currentUrl: req.path,
+  });
 });
 
 app.get("/testimonials", (req, res) => {
-  res.render("testimonials");
+  res.render("testimonials", {
+    currentUrl: req.path,
+  });
 });
 
 // Express JS listener

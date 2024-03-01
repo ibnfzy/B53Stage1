@@ -3,13 +3,25 @@
     <ul>
       <img src="./assets/img/logo.png" alt="logo-image" />
 
-      <li>
+      <li 
+      {{#if_active currentUrl "/"}}
+        class="active"
+        {{/if_active}}
+      >
         <a href="/">Home</a>
       </li>
-      <li>
-        <a href="/projects">My Project</a>
+      <li 
+      {{#if_active currentUrl "/projects"}}
+        class="active"
+        {{/if_active}}
+      >
+        <a href="/projects">Add Project</a>
       </li>
-      <li>
+      <li
+      {{#if_active currentUrl "/testimonials"}}
+        class="active"
+        {{/if_active}}
+      >
         <a href="/testimonials">Testimonials</a>
       </li>
     </ul>
@@ -30,8 +42,24 @@
 </nav>
 
 <div class="dropdown-navbar d-none" id="dropdown">
-  <a href="/">Home</a>
-  <a href="/projects">Add Project</a>
-  <a href="/testimonials">Testimonials</a>
-  <a href="/contact">Contact Me</a>
+  <a href="/" 
+  {{#if_active currentUrl "/"}}
+        class="active"
+        {{/if_active}}
+  >Home</a>
+  <a href="/projects" 
+  {{#if_active currentUrl "/projects"}}
+        class="active"
+        {{/if_active}}
+  >Add Project</a>
+  <a href="/testimonials" 
+  {{#if_active currentUrl "/testimonials"}}
+        class="active"
+        {{/if_active}}
+  >Testimonials</a>
+  <a href="/contact" 
+  {{#if_active currentUrl "/contact"}}
+        class="active"
+        {{/if_active}}
+  >Contact Me</a>
 </div>
