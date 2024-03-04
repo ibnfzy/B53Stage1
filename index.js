@@ -29,33 +29,7 @@ hbs.registerHelper("if_active", (currentUrl, value, opts) => {
   }
 });
 
-// Log for debugging routes and body
-app.use((req, res, next) => {
-  console.log(`LOG: ${req.method} ${req.path}`);
-  if (req.method === "POST") {
-    console.log(" body:", req.body);
-  } else {
-    console.log(" params:", req.params);
-  }
-  next();
-});
-
-// Data for debug
-let dataProject = [
-  {
-    name: "TEST",
-    date1: new Date("03/04/2024"),
-    date2: new Date("02/04/2024"),
-    node: true,
-    react: true,
-    next: true,
-    type: true,
-    desc: "TEST",
-    diff: getDiffDate(new Date("02/04/2024"), new Date("03/04/2024")),
-  },
-];
-
-function getDiffDate(start_date, end_date) {
+const getDiffDate = (start_date, end_date) => {
   const diffInMs = Math.abs(end_date - start_date);
   const days = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
   const months = Math.floor(days / 30);
@@ -82,7 +56,33 @@ function getDiffDate(start_date, end_date) {
   }
 
   return years + " years";
-}
+};
+
+// Log for debugging routes and body
+app.use((req, res, next) => {
+  console.log(`LOG: ${req.method} ${req.path}`);
+  if (req.method === "POST") {
+    console.log(" body:", req.body);
+  } else {
+    console.log(" params:", req.params);
+  }
+  next();
+});
+
+// Data for debug
+let dataProject = [
+  {
+    name: "TEST",
+    date1: "2024-03-06",
+    date2: "2024-03-19",
+    node: true,
+    react: true,
+    next: true,
+    type: true,
+    desc: "TEST",
+    diff: getDiffDate(new Date("02/04/2024"), new Date("03/04/2024")),
+  },
+];
 
 // Controller
 const index = (req, res) => {
@@ -115,8 +115,8 @@ const projectPost = (req, res) => {
 
   dataProject.push({
     name,
-    date1: new Date(date1),
-    date2: new Date(date2),
+    date1,
+    date2,
     node,
     react,
     next,
@@ -136,8 +136,12 @@ const projectDelete = (req, res) => {
 
 const projectEdit = (req, res) => {
   const { id } = req.params;
-  res.render("project-edit", {
+  console.log(dataProject[id]);
+
+  res.render("project_edit", {
     data: dataProject[id],
+    id,
+    currentUrl: req.path,
   });
 };
 
@@ -147,8 +151,8 @@ const projectUpdate = (req, res) => {
 
   dataProject.splice(id, 1, {
     name,
-    date1: new Date(date1),
-    date2: new Date(date2),
+    date1,
+    date2,
     node,
     react,
     next,
@@ -179,7 +183,7 @@ app.post("/project", projectPost);
 
 app.get("/project/:id", projectEdit);
 
-app.get("/project/:id/update", projectUpdate);
+app.post("/project/:id/update", projectUpdate);
 
 app.get("/project/:id/delete", projectDelete);
 
