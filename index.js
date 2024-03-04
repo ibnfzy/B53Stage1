@@ -2,13 +2,11 @@ import express from "express";
 import hbs from "hbs";
 import path from "path";
 import { fileURLToPath } from "url";
-import bodyParser from "body-parser";
 
 // Config Express JS
 const app = express();
 const port = 3000;
-const jsonParser = bodyParser.json();
-const urlencodedParser = bodyParser.urlencoded({ extended: true });
+app.use(express.urlencoded({ extended: false }));
 
 // Get Directory Root
 const __filename = fileURLToPath(import.meta.url);
@@ -42,46 +40,150 @@ app.use((req, res, next) => {
   next();
 });
 
-// Routes
-app.get("/", (req, res) => {
+// Data for debug
+let dataProject = [
+  {
+    name: "TEST",
+    date1: new Date("03/04/2024"),
+    date2: new Date("02/04/2024"),
+    node: true,
+    react: true,
+    next: true,
+    type: true,
+    desc: "TEST",
+    diff: getDiffDate(new Date("02/04/2024"), new Date("03/04/2024")),
+  },
+];
+
+function getDiffDate(start_date, end_date) {
+  const diffInMs = Math.abs(end_date - start_date);
+  const days = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+  const months = Math.floor(days / 30);
+  const years = Math.floor(months / 12);
+
+  if (days < 1) {
+    return "1 day";
+  }
+
+  if (days < 30) {
+    return days + " days";
+  }
+
+  if (months === 1) {
+    return "1 month";
+  }
+
+  if (months < 12) {
+    return months + " months";
+  }
+
+  if (years === 1) {
+    return "1 year";
+  }
+
+  return years + " years";
+}
+
+// Controller
+const index = (req, res) => {
   res.render("index", {
     currentUrl: req.path,
+    data: dataProject,
   });
-});
+};
 
-app.get("/contact", (req, res) => {
+const contact = (req, res) => {
   res.render("contact", {
     currentUrl: req.path,
   });
-});
+};
 
-app.get("/detail_project", (req, res) => {
+const detailProject = (req, res) => {
   res.render("detail_projects", {
     currentUrl: req.path,
   });
-});
+};
 
-app.get("/projects", (req, res) => {
+const projects = (req, res) => {
   res.render("projects", {
     currentUrl: req.path,
   });
-});
+};
 
-app.post("/project", urlencodedParser, (req, res) => {
-  // res.json({
-  //   status: 200,
-  //   data: req.body,
-  //   test: true,
-  // });
+const projectPost = (req, res) => {
+  const { name, date1, date2, node, react, next, type, desc } = req.body;
 
-  console.log(req.body);
-});
+  dataProject.push({
+    name,
+    date1: new Date(date1),
+    date2: new Date(date2),
+    node,
+    react,
+    next,
+    type,
+    desc,
+    diff: getDiffDate(new Date(date1), new Date(date2)),
+  });
 
-app.get("/testimonials", (req, res) => {
+  res.redirect("/");
+};
+
+const projectDelete = (req, res) => {
+  const { id } = req.params;
+  dataProject.splice(index, 1);
+  res.redirect("/");
+};
+
+const projectEdit = (req, res) => {
+  const { id } = req.params;
+  res.render("project-edit", {
+    data: dataProject[id],
+  });
+};
+
+const projectUpdate = (req, res) => {
+  const { id } = req.params;
+  const { name, date1, date2, node, react, next, type, desc } = req.body;
+
+  dataProject.splice(id, 1, {
+    name,
+    date1: new Date(date1),
+    date2: new Date(date2),
+    node,
+    react,
+    next,
+    type,
+    desc,
+    diff: getDiffDate(new Date(date1), new Date(date2)),
+  });
+
+  res.redirect("/");
+};
+
+const testimonials = (req, res) => {
   res.render("testimonials", {
     currentUrl: req.path,
   });
-});
+};
+
+// Routes
+app.get("/", index);
+
+app.get("/contact", contact);
+
+app.get("/detail_project/:id", detailProject);
+
+app.get("/projects", projects);
+
+app.post("/project", projectPost);
+
+app.get("/project/:id", projectEdit);
+
+app.get("/project/:id/update", projectUpdate);
+
+app.get("/project/:id/delete", projectDelete);
+
+app.get("/testimonials", testimonials);
 
 // Express JS listener
 app.listen(port, () => {
