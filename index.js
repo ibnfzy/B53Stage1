@@ -99,8 +99,10 @@ const contact = (req, res) => {
 };
 
 const detailProject = (req, res) => {
+  const { id } = req.params;
   res.render("detail_projects", {
     currentUrl: req.path,
+    data: dataProject[id],
   });
 };
 
