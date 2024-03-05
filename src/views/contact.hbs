@@ -15,26 +15,26 @@
 <body>
   {{> navbar}}
 
-  <form>
+  <form method="post" action="/contact">
     <h1 class="login-title">GET IN TOUCH</h1>
     <div>
       <label>Name</label>
-      <input id="name" type="text" placeholder="Type your name..." />
+      <input id="name" type="text" placeholder="Type your name..." name="name" required />
     </div>
 
     <div>
       <label>Email</label>
-      <input id="email" type="email" placeholder="Type your email..." />
+      <input id="email" type="email" placeholder="Type your email..." name="email" required />
     </div>
 
     <div>
       <label>Phone Number</label>
-      <input id="phone" type="text" placeholder="Type your phone number..." />
+      <input id="phone" type="text" placeholder="Type your phone number..." name="phone" required />
     </div>
 
     <div>
       <label>Subject</label>
-      <select id="subject">
+      <select id="subject" name="subject" required>
         <option hidden>Select Options!</option>
         <option>Frontend Developer</option>
         <option>Backend Developer</option>
@@ -44,11 +44,11 @@
 
     <div>
       <label>Your Message</label>
-      <textarea id="message"></textarea>
+      <textarea id="message" name="message" required></textarea>
     </div>
 
     <div>
-      <button type="button" onclick="sendMail()">Submit</button>
+      <button>Submit</button>
     </div>
   </form>
 

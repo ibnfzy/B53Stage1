@@ -98,6 +98,14 @@ const contact = (req, res) => {
   });
 };
 
+const sendMail = (req, res) => {
+  const { name, email, phone, subject, message } = req.body;
+  let emailDestination = "hi.dandi9@gmail.com";
+  let url = `mailto:${emailDestination}?subject=${subject}&body=Halo bang nama saya, ${name}, saya ingin ${message}. bisakah anda menghubungi saya ${phone}`;
+
+  res.redirect(url);
+};
+
 const detailProject = (req, res) => {
   const { id } = req.params;
   res.render("detail_projects", {
@@ -176,6 +184,8 @@ const testimonials = (req, res) => {
 app.get("/", index);
 
 app.get("/contact", contact);
+
+app.post("/contact", sendMail);
 
 app.get("/detail_project/:id", detailProject);
 
