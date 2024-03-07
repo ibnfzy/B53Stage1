@@ -89,12 +89,12 @@
             <div class="project-card">
               <div class="card-body-project">
                 <img src="./assets/img/stock-img.jpg" alt="" class="card-img-project" />
-                <h3 class="card-title"><a href='/detail_project/{{@index}}' target='_blank'
+                <h3 class="card-title"><a href='/detail_project/{{this.id}}' target='_blank'
                     class="link-detail">{{this.name}}</a>
                 </h3>
-                <p class="card-date">durasi : {{this.diff}}</p>
+                <p class="card-date">durasi : {{this.diff_date}}</p>
                 <p>
-                  {{this.desc}}
+                  {{this.description}}
                 </p>
 
                 <div class="icon-list">
@@ -117,8 +117,8 @@
                 </div>
 
                 <div class="row m-0">
-                  <a href="/project/{{@index}}" class="btn-black col-6 m-0">edit</a>
-                  <a href="/project/{{@index}}/delete" class="btn-black col-6 m-0">delete</a>
+                  <a href="/project/{{this.id}}" class="btn-black col-6 m-0">edit</a>
+                  <a href="/project/{{this.id}}/delete" class="btn-black col-6 m-0">delete</a>
                 </div>
               </div>
             </div>

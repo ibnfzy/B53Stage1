@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "root",
+    "database": "B53_personal_web",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}

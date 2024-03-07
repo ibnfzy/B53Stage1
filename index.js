@@ -2,11 +2,14 @@ import express from "express";
 import hbs from "hbs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { Sequelize, QueryTypes } from "sequelize";
+import connection from "./src/database/config/connection.json" assert { type: "json" };
 
 // Config Express JS
 const app = express();
 const port = 3000;
 app.use(express.urlencoded({ extended: false }));
+const sequelize = new Sequelize(connection.development);
 
 // Get Directory Root
 const __filename = fileURLToPath(import.meta.url);
@@ -69,27 +72,23 @@ app.use((req, res, next) => {
   next();
 });
 
-// Data for debug
-let dataProject = [
-  {
-    name: "TEST",
-    date1: "2024-03-06",
-    date2: "2024-03-19",
-    node: true,
-    react: true,
-    next: true,
-    type: true,
-    desc: "TEST",
-    diff: getDiffDate(new Date("02/04/2024"), new Date("03/04/2024")),
-  },
-];
-
 // Controller
-const index = (req, res) => {
-  res.render("index", {
-    currentUrl: req.path,
-    data: dataProject,
-  });
+const index = async (req, res) => {
+  try {
+    const data = await sequelize.query(
+      "SELECT * FROM projects ORDER BY id DESC",
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
+
+    res.render("index", {
+      currentUrl: req.path,
+      data,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const contact = (req, res) => {
@@ -106,12 +105,36 @@ const sendMail = (req, res) => {
   res.redirect(url);
 };
 
-const detailProject = (req, res) => {
-  const { id } = req.params;
-  res.render("detail_projects", {
-    currentUrl: req.path,
-    data: dataProject[id],
-  });
+const detailProject = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await sequelize.query(
+      `SELECT * FROM projects WHERE id = ${id}`,
+      {
+        type: QueryTypes.SELECT,
+      }
+    );
+
+    const formatDuration = new Intl.DateTimeFormat("id", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    const newData = data.map((item) => {
+      return {
+        ...item,
+        duration: formatDuration.formatRange(item.start_date, item.end_date),
+      };
+    });
+
+    res.render("detail_projects", {
+      currentUrl: req.path,
+      data: newData[0],
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const projects = (req, res) => {
@@ -120,58 +143,97 @@ const projects = (req, res) => {
   });
 };
 
-const projectPost = (req, res) => {
-  const { name, date1, date2, node, react, next, type, desc } = req.body;
+const projectPost = async (req, res) => {
+  try {
+    const { name, date1, date2, node, react, next, type, desc } = req.body;
 
-  dataProject.push({
-    name,
-    date1,
-    date2,
-    node,
-    react,
-    next,
-    type,
-    desc,
-    diff: getDiffDate(new Date(date1), new Date(date2)),
-  });
+    const diff_date = getDiffDate(new Date(date1), new Date(date2));
+    const start_date = new Date(date1).toISOString();
+    const end_date = new Date(date2).toISOString();
+    const is_node = node ? true : false;
+    const is_react = react ? true : false;
+    const is_next = next ? true : false;
+    const is_type = type ? true : false;
 
-  res.redirect("/");
+    await sequelize.query(
+      `INSERT INTO projects(name, start_date, end_date, node, react, next, type, description, diff_date, create_at, update_at) VALUES ('${name}', '${start_date}', '${end_date}', ${is_node}, ${is_react}, ${is_next}, ${is_type}, '${desc}', '${diff_date}', NOW(), NOW())`,
+      {
+        type: QueryTypes.INSERT,
+      }
+    );
+
+    res.redirect("/");
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-const projectDelete = (req, res) => {
-  const { id } = req.params;
-  dataProject.splice(index, 1);
-  res.redirect("/");
+const projectDelete = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    await sequelize.query(`DELETE FROM projects WHERE id = ${id}`, {
+      type: QueryTypes.DELETE,
+    });
+
+    res.redirect("/");
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-const projectEdit = (req, res) => {
-  const { id } = req.params;
-  console.log(dataProject[id]);
+const projectEdit = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await sequelize.query(
+      `SELECT * FROM projects WHERE id = ${id}`,
+      {
+        type: QueryTypes.INSERT,
+      }
+    );
 
-  res.render("project_edit", {
-    data: dataProject[id],
-    id,
-    currentUrl: req.path,
-  });
+    const newData = data[0].map((item) => {
+      return {
+        ...item,
+        input_start_date: new Date(item.start_date).toLocaleDateString("en-CA"),
+        input_end_date: new Date(item.end_date).toLocaleDateString("en-CA"),
+      };
+    });
+
+    res.render("project_edit", {
+      data: newData[0],
+      id,
+      currentUrl: req.path,
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-const projectUpdate = (req, res) => {
-  const { id } = req.params;
-  const { name, date1, date2, node, react, next, type, desc } = req.body;
+const projectUpdate = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, date1, date2, node, react, next, type, desc } = req.body;
 
-  dataProject.splice(id, 1, {
-    name,
-    date1,
-    date2,
-    node,
-    react,
-    next,
-    type,
-    desc,
-    diff: getDiffDate(new Date(date1), new Date(date2)),
-  });
+    const diff_date = getDiffDate(new Date(date1), new Date(date2));
+    const start_date = new Date(date1).toISOString();
+    const end_date = new Date(date2).toISOString();
+    const is_node = node ? true : false;
+    const is_react = react ? true : false;
+    const is_next = next ? true : false;
+    const is_type = type ? true : false;
 
-  res.redirect("/");
+    await sequelize.query(
+      `UPDATE projects SET name='${name}', start_date='${start_date}', end_date='${end_date}', node=${is_node}, react=${is_react}, next=${is_next}, type=${is_type}, description='${desc}', diff_date='${diff_date}', update_at=NOW() WHERE id=${id}`,
+      {
+        type: QueryTypes.UPDATE,
+      }
+    );
+
+    res.redirect("/");
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const testimonials = (req, res) => {
