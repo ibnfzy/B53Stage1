@@ -13,6 +13,13 @@ import {
   projects,
   detailProject,
 } from "../controllers/projects.js";
+import {
+  login,
+  register,
+  loginAuth,
+  registerSave,
+  logout,
+} from "../controllers/login.js";
 
 const WebRouter = Router();
 
@@ -35,5 +42,15 @@ WebRouter.post("/project/:id/update", projectUpdate);
 WebRouter.get("/project/:id/delete", projectDelete);
 
 WebRouter.get("/testimonials", testimonials);
+
+WebRouter.get("/login", login);
+
+WebRouter.post("/login", loginAuth);
+
+WebRouter.get("/register", register);
+
+WebRouter.post("/register", registerSave);
+
+WebRouter.get("/logout", logout);
 
 export { WebRouter };

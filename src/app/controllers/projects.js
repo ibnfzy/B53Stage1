@@ -35,6 +35,7 @@ const getDiffDate = (start_date, end_date) => {
 export const projects = (req, res) => {
   res.render("projects", {
     currentUrl: req.path,
+    sessionLogin: req.session.isLogin,
   });
 };
 
@@ -63,6 +64,7 @@ export const detailProject = async (req, res) => {
 
     res.render("detail_projects", {
       currentUrl: req.path,
+      sessionLogin: req.session.isLogin,
       data: newData[0],
     });
   } catch (e) {
@@ -131,6 +133,7 @@ export const projectEdit = async (req, res) => {
       data: newData[0],
       id,
       currentUrl: req.path,
+      sessionLogin: req.session.isLogin,
     });
   } catch (e) {
     console.log(e);

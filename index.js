@@ -3,11 +3,27 @@ import hbs from "hbs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { MainRouter } from "./src/app/routes/index.js";
+import session from "express-session";
+import flash from "express-flash";
 
 // Config Express JS
 const app = express();
 const port = 3000;
 app.use(express.urlencoded({ extended: false }));
+
+// Setup Session
+app.use(
+  session({
+    secret: "jultdev4life",
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      secure: false,
+    },
+  })
+);
+
+app.use(flash());
 
 // Get Directory Root
 const __filename = fileURLToPath(import.meta.url);
@@ -30,9 +46,19 @@ hbs.registerHelper("if_active", (currentUrl, value, opts) => {
   }
 });
 
+hbs.registerHelper("if_not", (value, opts) => {
+  if (!value) {
+    return opts.fn(this);
+  }
+});
+
 // Log for debugging routes and body
 app.use((req, res, next) => {
+  console.log("==========");
   console.log(`LOG: ${req.method} ${req.path}`);
+  // req.session.isLogin = true;
+  console.log("SESSION: ", req.session);
+  console.log("CHECK EMAIL: ", req.session.email);
   if (req.method === "POST") {
     console.log(" body:", req.body);
   } else {

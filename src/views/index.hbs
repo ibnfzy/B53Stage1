@@ -116,10 +116,12 @@
                   {{/if}}
                 </div>
 
+                {{#if ../sessionLogin}}
                 <div class="row m-0">
                   <a href="/project/{{this.id}}" class="btn-black col-6 m-0">edit</a>
                   <a href="/project/{{this.id}}/delete" class="btn-black col-6 m-0">delete</a>
                 </div>
+                {{/if}}
               </div>
             </div>
           </div>

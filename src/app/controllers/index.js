@@ -14,6 +14,7 @@ export const index = async (req, res) => {
 
     res.render("index", {
       currentUrl: req.path,
+      sessionLogin: req.session.isLogin,
       data,
     });
   } catch (e) {
@@ -24,6 +25,7 @@ export const index = async (req, res) => {
 export const contact = (req, res) => {
   res.render("contact", {
     currentUrl: req.path,
+    sessionLogin: req.session.isLogin,
   });
 };
 
@@ -38,5 +40,6 @@ export const sendMail = (req, res) => {
 export const testimonials = (req, res) => {
   res.render("testimonials", {
     currentUrl: req.path,
+    sessionLogin: req.session.isLogin,
   });
 };

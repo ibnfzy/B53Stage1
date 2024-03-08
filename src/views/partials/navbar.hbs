@@ -6,9 +6,11 @@
       <li {{#if_active currentUrl "/" }} class="active" {{/if_active}}>
         <a href="/">Home</a>
       </li>
+      {{#if sessionLogin}}
       <li {{#if_active currentUrl "/projects" }} class="active" {{/if_active}}>
         <a href="/projects">Add Project</a>
       </li>
+      {{/if}}
       <li {{#if_active currentUrl "/testimonials" }} class="active" {{/if_active}}>
         <a href="/testimonials">Testimonials</a>
       </li>
@@ -16,12 +18,19 @@
   </div>
 
   <div class="right">
-    <a href="/contact">Contact Me</a>
+    {{#if sessionLogin}}
+    <a href="/logout" class="m-2 {{#if_active currentUrl " /login" }} active {{/if_active}}">Keluar</a>
+    {{/if}}
+
+    {{#if_not sessionLogin}}
+    <a href="/login" class="m-2 {{#if_active currentUrl " /login" }} active {{/if_active}}">Login</a>
+    <a href="/register" class="m-2 {{#if_active currentUrl " /register" }} active {{/if_active}}">Register</a>
+    {{/if_not}}
+    <a href="/contact" class="contact">Contact Me</a>
   </div>
   <div class="right d-none">
     <button onclick="navbarOpen()" class="btn-navbar">
-      <svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5"
-        viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512">
         <path
           d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
       </svg>
@@ -33,5 +42,7 @@
   <a href="/" {{#if_active currentUrl "/" }} class="active" {{/if_active}}>Home</a>
   <a href="/projects" {{#if_active currentUrl "/projects" }} class="active" {{/if_active}}>Add Project</a>
   <a href="/testimonials" {{#if_active currentUrl "/testimonials" }} class="active" {{/if_active}}>Testimonials</a>
+  <a href="/login" {{#if_active currentUrl "/login" }} class="active" {{/if_active}}>Login</a>
+  <a href="/register" {{#if_active currentUrl "/register" }} class="active" {{/if_active}}>Register</a>
   <a href="/contact" {{#if_active currentUrl "/contact" }} class="active" {{/if_active}}>Contact Me</a>
 </div>
