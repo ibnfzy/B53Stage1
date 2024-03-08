@@ -28,19 +28,21 @@ export const loginAuth = async (req, res) => {
     );
 
     if (!data.length) {
-      res.redirect("/register");
+      req.flash("error", "Username nya tidak cocok nih!");
+      res.redirect("/login");
     }
 
     bcrypt.compare(password, data[0].password, (e, result) => {
       if (e) throw e;
 
       if (result) {
-        req.flash("success", "Login Success");
+        req.flash("success", "Selamat datang kembali tuan");
         req.session.isLogin = true;
         req.session.email = email;
         res.redirect("/");
       } else {
-        res.redirect("/register");
+        req.flash("error", "Password ini salah, ingat-ingat dulu!");
+        res.redirect("/login");
       }
     });
   } catch (e) {
@@ -52,8 +54,14 @@ export const registerSave = (req, res) => {
   try {
     let { name, email, password } = req.body;
 
+    if (!name || !email || !password) {
+      req.flash("error", "Formnya gak boleh kosong dong!");
+      return res.redirect("/register");
+    }
+
     bcrypt.hash(password, 10, async (e, hash) => {
       if (e) {
+        req.flash("error", `Yah ada yang error nih, errornya: ${e}`);
         return res.redirect("/register");
       }
 
@@ -64,6 +72,10 @@ export const registerSave = (req, res) => {
         }
       );
 
+      req.flash(
+        "success",
+        "Kamu berhasil daftar nih, silahkan langsung login!"
+      );
       res.redirect("/login");
     });
   } catch (e) {

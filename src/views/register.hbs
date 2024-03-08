@@ -14,6 +14,18 @@
 <body>
   {{> navbar}}
 
+  {{#if messages.error}}
+  <div class="alert alert-danger alert-dismissibler" role="alert">
+    {{messages.error}}
+  </div>
+  {{/if}}
+
+  {{#if messages.success}}
+  <div class="alert alert-success alert-dismissibler" role="alert">
+    {{messages.success}}
+  </div>
+  {{/if}}
+
   <form action="/register" method="post">
     <h3 class="login-title">Register to your account</h3>
 
