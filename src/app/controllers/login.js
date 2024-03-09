@@ -4,6 +4,12 @@ import connection from "../../database/config/connection.json" assert { type: "j
 
 const sequelize = new Sequelize(connection.development);
 
+/**
+ * Renders the login page.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
 export const login = (req, res) => {
   res.render("login", {
     currentUrl: req.path,
@@ -11,6 +17,12 @@ export const login = (req, res) => {
   });
 };
 
+/**
+ * Renders the register page.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ */
 export const register = (req, res) => {
   res.render("register", {
     currentUrl: req.path,
@@ -18,6 +30,13 @@ export const register = (req, res) => {
   });
 };
 
+/**
+ * Authenticates a user's login credentials.
+ * Checks if the provided email exists in the database, and compares
+ * the provided password with the hashed password in the database.
+ * Sets session variables if login succeeds.
+ * Redirects to the login page with error flash message if login fails.
+ */
 export const loginAuth = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -50,6 +69,14 @@ export const loginAuth = async (req, res) => {
   }
 };
 
+/**
+ * Saves a new user registration to the database.
+ *
+ * Hashes the password, validates required fields,
+ * inserts the user record into the database.
+ * Handles any errors and redirects back to the register page.
+ * Sets flash messages for the user.
+ */
 export const registerSave = (req, res) => {
   try {
     let { name, email, password } = req.body;
@@ -83,6 +110,12 @@ export const registerSave = (req, res) => {
   }
 };
 
+/**
+ * Logs the user out by destroying the session.
+ *
+ * Destroys the current session and redirects to the homepage.
+ * Handles any errors.
+ */
 export const logout = (req, res) => {
   try {
     req.session.destroy((e) => {

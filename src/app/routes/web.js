@@ -23,6 +23,26 @@ import {
 
 const WebRouter = Router();
 
+/**
+ * Routes for web app
+ *
+ * - GET /: Home page
+ * - GET /contact: Contact page
+ * - POST /contact: Send contact form email
+ * - GET /detail_project/:id: Project detail page
+ * - GET /projects: All projects page
+ * - POST /project: Create new project
+ * - GET /project/:id: Edit project page
+ * - POST /project/:id/update: Update project
+ * - GET /project/:id/delete: Delete project
+ * - GET /testimonials: Testimonials page
+ *
+ * - GET /login: Login page
+ * - POST /login: Handle login form
+ * - GET /register: Registration page
+ * - POST /register: Handle registration
+ * - GET /logout: Logout user
+ */
 WebRouter.get("/", index);
 
 WebRouter.get("/contact", contact);
