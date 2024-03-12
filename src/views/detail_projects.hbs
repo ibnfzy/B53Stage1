@@ -49,34 +49,29 @@
       <br>
       <h4>Technologies</h4>
       <div class="row">
-        {{#if data.react}}
+        {{#each data.technologies}}
         <div class="col-6 text-icon">
-          <img src='/assets/img/react.svg' class='icon-project' />
+          <img src='/assets/img/{{this}}.svg' class='icon-project' />
 
-          <span class="text-icon-trail">React JS</span>
-        </div>
-        {{/if}}
+          <span class="text-icon-trail">
+            {{#if_equals this 'react'}}
+            React JS
+            {{/if_equals}}
 
-        {{#if data.node}}
-        <div class="col-6 text-icon">
-          <img src='/assets/img/node.svg' class='icon-project' />
-          <span class="text-icon-trail">Node JS</span>
-        </div>
-        {{/if}}
+            {{#if_equals this 'node'}}
+            Node JS
+            {{/if_equals}}
 
-        {{#if data.next}}
-        <div class="col-6 text-icon">
-          <img src='/assets/img/next.svg' class='icon-project' />
-          <span class="text-icon-trail">Next JS</span>
-        </div>
-        {{/if}}
+            {{#if_equals this 'next'}}
+            Next JS
+            {{/if_equals}}
 
-        {{#if data.type}}
-        <div class="col-6 text-icon">
-          <img src='/assets/img/type.svg' class='icon-project' />
-          <span class="text-icon-trail">TypeScript</span>
+            {{#if_equals this 'type'}}
+            TypeScript
+            {{/if_equals}}
+          </span>
         </div>
-        {{/if}}
+        {{/each}}
       </div>
     </div>
   </div>

@@ -98,22 +98,9 @@
                 </p>
 
                 <div class="icon-list">
-                  <!-- react -->
-                  {{#if this.react}}
-                  <img src='./assets/img/react.svg' class='icon-project' />
-                  {{/if}}
-                  <!-- node -->
-                  {{#if this.node}}
-                  <img src='./assets/img/node.svg' class='icon-project' />
-                  {{/if}}
-                  <!-- next -->
-                  {{#if this.next}}
-                  <img src='./assets/img/next.svg' class='icon-project' />
-                  {{/if}}
-                  <!-- ts -->
-                  {{#if this.type}}
-                  <img src='./assets/img/type.svg' class='icon-project' />
-                  {{/if}}
+                  {{#each this.technologies}}
+                  <img src='./assets/img/{{this}}.svg' class='icon-project' />
+                  {{/each}}
                 </div>
 
                 {{#if ../sessionLogin}}

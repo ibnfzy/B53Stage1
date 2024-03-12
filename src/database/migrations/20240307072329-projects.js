@@ -26,17 +26,8 @@ module.exports = {
       end_date: {
         type: Sequelize.DATE,
       },
-      node: {
-        type: Sequelize.BOOLEAN,
-      },
-      react: {
-        type: Sequelize.BOOLEAN,
-      },
-      next: {
-        type: Sequelize.BOOLEAN,
-      },
-      type: {
-        type: Sequelize.BOOLEAN,
+      technologies: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
       },
       description: {
         type: Sequelize.TEXT,

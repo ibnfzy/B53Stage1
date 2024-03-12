@@ -52,6 +52,29 @@ hbs.registerHelper("if_not", (value, opts) => {
   }
 });
 
+hbs.registerHelper("if_equals", (dataThis, data, opts) => {
+  if (dataThis === data) {
+    return opts.fn(this);
+  }
+});
+
+hbs.registerHelper("if_isset", (dataArr, data, opts) => {
+  dataArr.find((item) => {
+    if (item === data) {
+      console.log(this);
+      return opts.fn(this);
+    }
+  });
+});
+
+hbs.registerHelper("checkArray", function (array, value) {
+  const check = array.includes(value);
+
+  if (check) {
+    return "checked";
+  }
+});
+
 // Log for debugging routes and body
 app.use((req, res, next) => {
   console.log("==========");

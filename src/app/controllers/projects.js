@@ -108,13 +108,27 @@ export const projectPost = async (req, res) => {
     const diff_date = getDiffDate(new Date(date1), new Date(date2));
     const start_date = new Date(date1).toISOString();
     const end_date = new Date(date2).toISOString();
-    const is_node = node ? true : false;
-    const is_react = react ? true : false;
-    const is_next = next ? true : false;
-    const is_type = type ? true : false;
+    const technologies = [];
+    if (node) {
+      technologies.push(node);
+    }
+
+    if (react) {
+      technologies.push(react);
+    }
+
+    if (next) {
+      technologies.push(next);
+    }
+
+    if (type) {
+      technologies.push(type);
+    }
+
+    const dataTechnology = technologies.map((item) => `'${item}'`);
 
     await sequelize.query(
-      `INSERT INTO projects(name, start_date, end_date, node, react, next, type, description, diff_date, create_at, update_at) VALUES ('${name}', '${start_date}', '${end_date}', ${is_node}, ${is_react}, ${is_next}, ${is_type}, '${desc}', '${diff_date}', NOW(), NOW())`,
+      `INSERT INTO projects(name, start_date, end_date, technologies, description, diff_date, create_at, update_at) VALUES ('${name}', '${start_date}', '${end_date}', ARRAY[${dataTechnology}], '${desc}', '${diff_date}', NOW(), NOW())`,
       {
         type: QueryTypes.INSERT,
       }
@@ -166,6 +180,8 @@ export const projectEdit = async (req, res) => {
       }
     );
 
+    const tech = ["node", "react", "next", "type"];
+
     const newData = data[0].map((item) => {
       return {
         ...item,
@@ -174,11 +190,42 @@ export const projectEdit = async (req, res) => {
       };
     });
 
+    const dataTechnology = data[0].map((item, idx) => {
+      return item.technologies.map((data) => {
+        let returnData = "";
+
+        switch (data) {
+          case "node":
+            returnData = "node";
+            break;
+
+          case "react":
+            returnData = "react";
+            break;
+
+          case "next":
+            returnData = "next";
+            break;
+
+          case "type":
+            returnData = "type";
+            break;
+
+          default:
+            returnData = "node";
+            break;
+        }
+
+        return returnData;
+      });
+    });
+
     res.render("project_edit", {
       data: newData[0],
       id,
       currentUrl: req.path,
       sessionLogin: req.session.isLogin,
+      dataTechnology: dataTechnology[0],
     });
   } catch (e) {
     console.log(e);
@@ -203,13 +250,27 @@ export const projectUpdate = async (req, res) => {
     const diff_date = getDiffDate(new Date(date1), new Date(date2));
     const start_date = new Date(date1).toISOString();
     const end_date = new Date(date2).toISOString();
-    const is_node = node ? true : false;
-    const is_react = react ? true : false;
-    const is_next = next ? true : false;
-    const is_type = type ? true : false;
+    const technologies = [];
+    if (node) {
+      technologies.push(node);
+    }
+
+    if (react) {
+      technologies.push(react);
+    }
+
+    if (next) {
+      technologies.push(next);
+    }
+
+    if (type) {
+      technologies.push(type);
+    }
+
+    const dataTechnology = technologies.map((item) => `'${item}'`);
 
     await sequelize.query(
-      `UPDATE projects SET name='${name}', start_date='${start_date}', end_date='${end_date}', node=${is_node}, react=${is_react}, next=${is_next}, type=${is_type}, description='${desc}', diff_date='${diff_date}', update_at=NOW() WHERE id=${id}`,
+      `UPDATE projects SET name='${name}', start_date='${start_date}', end_date='${end_date}', technologies=ARRAY[${dataTechnology}], description='${desc}', diff_date='${diff_date}', update_at=NOW() WHERE id=${id}`,
       {
         type: QueryTypes.UPDATE,
       }

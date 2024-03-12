@@ -36,23 +36,29 @@
       <label class="no-p col-12">Technologies</label>
       <div class="row">
         <div class="col-6">
-          <input type="checkbox" value="nodejs" id="node" name="node" {{#if data.node}} checked {{/if}} /> <label>Node
+          <input type="checkbox" value="node" id="node" name="node" {{#checkArray dataTechnology "node" }}
+            {{/checkArray}} />
+          <label for="node">Node
             Js</label>
         </div>
         <div class="col-6">
-          <input type="checkbox" value="reactjs" id="react" name="react" {{#if data.react}} checked {{/if}} />
-          <label>React
+          <input type="checkbox" value="react" id="react" name="react" {{#checkArray dataTechnology "react" }}
+            {{/checkArray}} />
+          <label for="react">React
             Js</label>
         </div>
       </div>
       <div class="row">
         <div class="col-6">
-          <input type="checkbox" value="nextjs" id="next" name="next" {{#if data.next}} checked {{/if}} /> <label>Next
+          <input type="checkbox" value="next" id="next" name="next" {{#checkArray dataTechnology "next" }}
+            {{/checkArray}} />
+          <label for="next">Next
             Js</label>
         </div>
         <div class="col-6">
-          <input type="checkbox" value="typescript" id="type" name="type" {{#if data.type}} checked {{/if}} />
-          <label>TypeScript</label>
+          <input type="checkbox" value="type" id="type" name="type" {{#checkArray dataTechnology "type" }}
+            {{/checkArray}} />
+          <label for="type">TypeScript</label>
         </div>
       </div>
     </div>
@@ -72,8 +78,6 @@
     </div>
   </form>
 
-  {{!--
-  <script src="./assets/js/scripts.js"></script> --}}
 </body>
 
 </html>
