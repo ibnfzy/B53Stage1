@@ -46,6 +46,11 @@ const getDiffDate = (start_date, end_date) => {
  * @param {Object} res - The response object.
  */
 export const projects = (req, res) => {
+  if (!req.session.isLogin) {
+    req.flash("error", "Login dulu sebelum post project!");
+    res.redirect("/login");
+  }
+
   res.render("projects", {
     currentUrl: req.path,
     sessionLogin: req.session.isLogin,
@@ -103,8 +108,15 @@ export const detailProject = async (req, res) => {
  */
 export const projectPost = async (req, res) => {
   try {
+    if (!req.session.isLogin) {
+      req.flash("error", "Login dulu sebelum post project!");
+      res.redirect("/login");
+    }
+
     const { name, date1, date2, node, react, next, type, desc } = req.body;
 
+    const image = req.file.filename;
+    const id = req.session.idUser;
     const diff_date = getDiffDate(new Date(date1), new Date(date2));
     const start_date = new Date(date1).toISOString();
     const end_date = new Date(date2).toISOString();
@@ -128,7 +140,7 @@ export const projectPost = async (req, res) => {
     const dataTechnology = technologies.map((item) => `'${item}'`);
 
     await sequelize.query(
-      `INSERT INTO projects(name, start_date, end_date, technologies, description, diff_date, create_at, update_at) VALUES ('${name}', '${start_date}', '${end_date}', ARRAY[${dataTechnology}], '${desc}', '${diff_date}', NOW(), NOW())`,
+      `INSERT INTO projects(name, image, start_date, end_date, technologies, description, diff_date, create_at, update_at, user_id) VALUES ('${name}', '${image}', '${start_date}', '${end_date}', ARRAY[${dataTechnology}], '${desc}', '${diff_date}', NOW(), NOW(), ${id})`,
       {
         type: QueryTypes.INSERT,
       }
@@ -149,6 +161,11 @@ export const projectPost = async (req, res) => {
  */
 export const projectDelete = async (req, res) => {
   try {
+    if (!req.session.isLogin) {
+      req.flash("error", "Login dulu sebelum delete project!");
+      res.redirect("/login");
+    }
+
     const { id } = req.params;
 
     await sequelize.query(`DELETE FROM projects WHERE id = ${id}`, {
@@ -172,6 +189,11 @@ export const projectDelete = async (req, res) => {
  */
 export const projectEdit = async (req, res) => {
   try {
+    if (!req.session.isLogin) {
+      req.flash("error", "Login dulu sebelum edit project!");
+      res.redirect("/login");
+    }
+
     const { id } = req.params;
     const data = await sequelize.query(
       `SELECT * FROM projects WHERE id = ${id}`,
@@ -179,8 +201,6 @@ export const projectEdit = async (req, res) => {
         type: QueryTypes.INSERT,
       }
     );
-
-    const tech = ["node", "react", "next", "type"];
 
     const newData = data[0].map((item) => {
       return {
@@ -244,6 +264,13 @@ export const projectEdit = async (req, res) => {
  */
 export const projectUpdate = async (req, res) => {
   try {
+    if (!req.session.isLogin) {
+      req.flash("error", "Login dulu sebelum post project!");
+      res.redirect("/login");
+    }
+
+    const image = req.file.filename;
+    let idUser = req.session.idUser;
     const { id } = req.params;
     const { name, date1, date2, node, react, next, type, desc } = req.body;
 
@@ -270,7 +297,7 @@ export const projectUpdate = async (req, res) => {
     const dataTechnology = technologies.map((item) => `'${item}'`);
 
     await sequelize.query(
-      `UPDATE projects SET name='${name}', start_date='${start_date}', end_date='${end_date}', technologies=ARRAY[${dataTechnology}], description='${desc}', diff_date='${diff_date}', update_at=NOW() WHERE id=${id}`,
+      `UPDATE projects SET name='${name}', image='${image}', start_date='${start_date}', end_date='${end_date}', technologies=ARRAY[${dataTechnology}], description='${desc}', diff_date='${diff_date}', update_at=NOW(), user_id=${idUser} WHERE id=${id}`,
       {
         type: QueryTypes.UPDATE,
       }

@@ -58,6 +58,7 @@ export const loginAuth = async (req, res) => {
         req.flash("success", "Selamat datang kembali tuan");
         req.session.isLogin = true;
         req.session.email = email;
+        req.session.idUser = data[0].id;
         res.redirect("/");
       } else {
         req.flash("error", "Password ini salah, ingat-ingat dulu!");

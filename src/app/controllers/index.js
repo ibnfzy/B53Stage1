@@ -12,12 +12,16 @@ const sequelize = new Sequelize(connection.development);
  */
 export const index = async (req, res) => {
   try {
-    const data = await sequelize.query(
-      "SELECT * FROM projects ORDER BY id DESC",
-      {
-        type: QueryTypes.SELECT,
-      }
-    );
+    let query = "SELECT * FROM projects ORDER BY id DESC";
+
+    if (req.session.isLogin) {
+      const id = req.session.idUser;
+      query = `SELECT * FROM projects WHERE user_id = ${id} ORDER BY id DESC`;
+    }
+
+    const data = await sequelize.query(query, {
+      type: QueryTypes.SELECT,
+    });
 
     res.render("index", {
       currentUrl: req.path,

@@ -1,7 +1,5 @@
 "use strict";
 
-const { DATE } = require("sequelize");
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -18,6 +16,7 @@ module.exports = {
     await queryInterface.bulkInsert("projects", [
       {
         name: "Website Penjualan Kain Tenun",
+        image: "stock-img.jpg",
         start_date: new Date("2023-02-24"),
         end_date: new Date("2023-03-12"),
         technologies: ["react", "node", "type", "next"],
@@ -26,6 +25,7 @@ module.exports = {
         diff_date: "30 Day",
         create_at: new Date(),
         update_at: new Date(),
+        user_id: 1,
       },
     ]);
   },

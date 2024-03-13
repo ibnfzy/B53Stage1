@@ -15,7 +15,7 @@
   {{> navbar}}
 
   {{!-- onsubmit="addProject(event)" --}}
-  <form method="POST" action="/project">
+  <form method="POST" action="/project" enctype="multipart/form-data">
     <h3 class="login-title">ADD MY PROJECT</h3>
     <div class="form-group">
       <label>Project Name</label>
@@ -60,7 +60,7 @@
 
     <div class="form-group">
       <label>Upload Image</label>
-      <input id="file" type="file" name="file" />
+      <input id="file" type="file" name="file" accept="images/jpg" />
     </div>
 
     <div class="form-group">

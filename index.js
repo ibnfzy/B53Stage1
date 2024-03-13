@@ -19,6 +19,7 @@ app.use(
     saveUninitialized: true,
     cookie: {
       secure: false,
+      httpOnly: true,
     },
   })
 );
@@ -35,6 +36,7 @@ app.set("view engine", "hbs");
 app.set("views", "src/views");
 
 app.use("/assets", express.static("src/assets"));
+app.use("/uploads", express.static("src/uploads"));
 
 hbs.registerPartials(__dirname + "/src/views/partials");
 
@@ -56,15 +58,6 @@ hbs.registerHelper("if_equals", (dataThis, data, opts) => {
   if (dataThis === data) {
     return opts.fn(this);
   }
-});
-
-hbs.registerHelper("if_isset", (dataArr, data, opts) => {
-  dataArr.find((item) => {
-    if (item === data) {
-      console.log(this);
-      return opts.fn(this);
-    }
-  });
 });
 
 hbs.registerHelper("checkArray", function (array, value) {

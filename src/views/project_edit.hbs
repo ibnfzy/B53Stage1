@@ -14,7 +14,7 @@
 <body>
   {{> navbar}}
 
-  <form method="POST" action="/project/{{id}}/update">
+  <form method="POST" action="/project/{{id}}/update" enctype="multipart/form-data">
     <h3 class="login-title">EDIT PROJECT</h3>
     <div class="form-group">
       <label>Project Name</label>
@@ -70,6 +70,7 @@
 
     <div class="form-group">
       <label>Upload Image</label>
+      <img src="/uploads/{{data.image}}" class="img-fluid rounded" alt="">
       <input id="file" type="file" name="file" />
     </div>
 

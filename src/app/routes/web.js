@@ -20,6 +20,19 @@ import {
   registerSave,
   logout,
 } from "../controllers/login.js";
+import multer from "multer";
+
+const multerConfig = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "src/uploads");
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    cb(null, file.fieldname + "-" + uniqueSuffix + ".jpg");
+  },
+});
+
+const upload = multer({ storage: multerConfig });
 
 const WebRouter = Router();
 
@@ -53,11 +66,11 @@ WebRouter.get("/detail_project/:id", detailProject);
 
 WebRouter.get("/projects", projects);
 
-WebRouter.post("/project", projectPost);
+WebRouter.post("/project", upload.single("file"), projectPost);
 
 WebRouter.get("/project/:id", projectEdit);
 
-WebRouter.post("/project/:id/update", projectUpdate);
+WebRouter.post("/project/:id/update", upload.single("file"), projectUpdate);
 
 WebRouter.get("/project/:id/delete", projectDelete);
 
