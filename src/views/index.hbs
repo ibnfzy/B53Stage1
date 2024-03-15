@@ -89,10 +89,11 @@
             <div class="project-card">
               <div class="card-body-project">
                 <img src="./uploads/{{this.image}}" alt="" class="card-img-project" />
-                <h3 class="card-title"><a href='/detail_project/{{this.id}}' target='_blank'
-                    class="link-detail">{{this.name}}</a>
+                <h3 class="card-title"><a href='/detail_project/{{this.project_id}}' target='_blank'
+                    class="link-detail">{{this.judul}}</a>
                 </h3>
                 <p class="card-date">durasi : {{this.diff_date}}</p>
+                <p class="card-date">author : {{this.author_name}}</p>
                 <p>
                   {{this.description}}
                 </p>
@@ -105,8 +106,8 @@
 
                 {{#if ../sessionLogin}}
                 <div class="row m-0">
-                  <a href="/project/{{this.id}}" class="btn-black col-6 m-0">edit</a>
-                  <a href="/project/{{this.id}}/delete" class="btn-black col-6 m-0">delete</a>
+                  <a href="/project/{{this.project_id}}" class="btn-black col-6 m-0">edit</a>
+                  <a href="/project/{{this.project_id}}/delete" class="btn-black col-6 m-0">delete</a>
                 </div>
                 {{/if}}
               </div>

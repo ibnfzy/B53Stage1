@@ -277,6 +277,13 @@ export const projectUpdate = async (req, res) => {
     const diff_date = getDiffDate(new Date(date1), new Date(date2));
     const start_date = new Date(date1).toISOString();
     const end_date = new Date(date2).toISOString();
+
+    let query = `UPDATE projects SET name='${name}', start_date='${start_date}', end_date='${end_date}', technologies=ARRAY[${dataTechnology}], description='${desc}', diff_date='${diff_date}', update_at=NOW(), user_id=${idUser} WHERE id=${id}`;
+
+    if (image) {
+      query = `UPDATE projects SET name='${name}', image='${image}', start_date='${start_date}', end_date='${end_date}', technologies=ARRAY[${dataTechnology}], description='${desc}', diff_date='${diff_date}', update_at=NOW(), user_id=${idUser} WHERE id=${id}`;
+    }
+
     const technologies = [];
     if (node) {
       technologies.push(node);
@@ -296,12 +303,9 @@ export const projectUpdate = async (req, res) => {
 
     const dataTechnology = technologies.map((item) => `'${item}'`);
 
-    await sequelize.query(
-      `UPDATE projects SET name='${name}', image='${image}', start_date='${start_date}', end_date='${end_date}', technologies=ARRAY[${dataTechnology}], description='${desc}', diff_date='${diff_date}', update_at=NOW(), user_id=${idUser} WHERE id=${id}`,
-      {
-        type: QueryTypes.UPDATE,
-      }
-    );
+    await sequelize.query(query, {
+      type: QueryTypes.UPDATE,
+    });
 
     res.redirect("/");
   } catch (e) {

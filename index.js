@@ -64,6 +64,7 @@ hbs.registerHelper("checkArray", function (array, value) {
   const check = array.includes(value);
 
   if (check) {
+    console.log(array);
     return "checked";
   }
 });

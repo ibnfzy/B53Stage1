@@ -12,16 +12,19 @@ const sequelize = new Sequelize(connection.development);
  */
 export const index = async (req, res) => {
   try {
-    let query = "SELECT * FROM projects ORDER BY id DESC";
+    let query =
+      "SELECT *, u.name as author_name, p.name as judul, p.id as project_id FROM projects p INNER JOIN users u ON p.user_id = u.id ORDER BY p.id DESC";
 
     if (req.session.isLogin) {
       const id = req.session.idUser;
-      query = `SELECT * FROM projects WHERE user_id = ${id} ORDER BY id DESC`;
+      query = `SELECT *, u.name as author_name, p.name as judul, p.id as project_id FROM projects p INNER JOIN users u ON p.user_id = u.id WHERE user_id = ${id} ORDER BY p.id DESC`;
     }
 
     const data = await sequelize.query(query, {
       type: QueryTypes.SELECT,
     });
+
+    console.log(data);
 
     res.render("index", {
       currentUrl: req.path,
